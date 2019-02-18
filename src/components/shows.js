@@ -39,7 +39,7 @@ const styles = ({ screens }) => ({
 export default injectSheet(styles)(({ classes, data }) => {
   return (
     <div className={classes.container}>
-      {data.edges.map(({ node }) => (
+      {data.map(({ node }) => (
         <div key={node.id} className={classes.item}>
           <Link className={classes.image} to={`/${node.slug}`}>
             <img
