@@ -14,6 +14,7 @@ module.exports = {
       })
     );
   },
+  pathPrefix: "/gatsby-bomb",
   siteMetadata: {
     title: `Gatsby Bomb`,
     description: `A fan made version of GiantBomb powered by Gatsby JS and the Giantbomb API`,
