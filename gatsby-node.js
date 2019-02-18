@@ -24,6 +24,7 @@ exports.sourceNodes = async (
     const nodeContent = JSON.stringify(show);
     const nodeData = Object.assign({}, show, {
       id: nodeId,
+      show_id: show.id,
       parent: null,
       children: [],
       internal: {
@@ -61,6 +62,7 @@ exports.sourceNodes = async (
     const nodeContent = JSON.stringify(video);
     const nodeData = Object.assign({}, video, {
       id: nodeId,
+      video_id: video.id,
       parent: null,
       children: [],
       internal: {
@@ -103,6 +105,8 @@ exports.createPages = async ({ graphql, actions }) => {
       allGiantBombShow {
         edges {
           node {
+            id
+            show_id
             title
             slug
             image {

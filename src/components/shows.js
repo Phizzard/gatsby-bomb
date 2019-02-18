@@ -1,6 +1,6 @@
 import React from "react";
 import injectSheet from "react-jss";
-import { StaticQuery, Link, graphql } from "gatsby";
+import { Link } from "gatsby";
 
 const styles = ({ screens }) => ({
   container: {
