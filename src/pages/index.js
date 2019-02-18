@@ -2,32 +2,31 @@ import React from "react";
 import { Link, graphql } from "gatsby";
 
 import Layout from "../components/layout";
+import Shows from "../components/shows";
 import Image from "../components/image";
 import SEO from "../components/seo";
 
-const IndexPage = ({ data }) => (
-  <Layout>
-    <SEO title="Home" keywords={[`gatsby`, `application`, `react`]} />
-    <h1>Hi people</h1>
-    <p>Welcome to your new Gatsby site.</p>
-    <p>Now go build something great.</p>
-    <Link to="/page-2/">Go to page 2</Link>
-  </Layout>
-);
+const IndexPage = ({ data }) => {
+  return (
+    <Layout>
+      <SEO title="Home" keywords={[`gatsby`, `application`, `react`]} />
+      <Shows data={data.allGiantBombShow} />
+    </Layout>
+  );
+};
 
 export const query = graphql`
-  {
-    allGiantBombShow(filter: { active: { eq: true } }) {
+  query ShowsQuery {
+    allGiantBombShow {
       edges {
         node {
+          id
           title
-          active
-          premium
           slug
-          children {
-            id
+          image {
+            small_url
+            medium_url
           }
-          display_nav
         }
       }
     }
