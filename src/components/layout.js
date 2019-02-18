@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { StaticQuery, graphql } from "gatsby";
-import PageTransition from "gatsby-plugin-page-transitions";
+import PageTransition from "gatsby-v2-plugin-page-transitions";
 import Header from "./header";
 import "./layout.css";
 import { ThemeProvider } from "react-jss";
