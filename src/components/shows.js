@@ -42,7 +42,11 @@ export default injectSheet(styles)(({ classes, data }) => {
       {data.edges.map(({ node }) => (
         <div key={node.id} className={classes.item}>
           <Link className={classes.image} to={`/${node.slug}`}>
-            <img className={classes.image} src={node.image.medium_url} />
+            <img
+              className={classes.image}
+              src={node.image.medium_url}
+              alt={node.name}
+            />
           </Link>
           <p className={classes.title}>{node.title}</p>
         </div>
