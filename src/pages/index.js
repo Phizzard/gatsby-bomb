@@ -47,7 +47,11 @@ const IndexPage = ({ classes, data }) => {
   });
 
   return (
-    <Layout>
+    <Layout
+      style={{
+        marginTop: "1.45rem"
+      }}
+    >
       <SEO title="Home" keywords={[`gatsby`, `application`, `react`]} />
       <div className={classes.filters}>
         <Filter

@@ -15,7 +15,7 @@ const theme = {
   }
 };
 
-const Layout = ({ children }) => (
+const Layout = ({ style, children }) => (
   <StaticQuery
     query={graphql`
       query SiteTitleQuery {
@@ -39,7 +39,7 @@ const Layout = ({ children }) => (
                 paddingTop: 0
               }}
             >
-              <main>{children}</main>
+              <main style={style}>{children}</main>
               <footer
                 style={{
                   fontSize: "12px",
