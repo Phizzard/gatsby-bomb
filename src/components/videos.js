@@ -32,7 +32,11 @@ export default injectSheet(styles)(({ data, classes }) => {
       {data
         .map(({ node }) => (
           <div key={node.id} className={classes.item}>
-            <img className={classes.image} src={node.image.medium_url} />
+            <img
+              alt={node.name}
+              className={classes.image}
+              src={node.image.medium_url}
+            />
             <p className={classes.title}>{node.name}</p>
           </div>
         ))

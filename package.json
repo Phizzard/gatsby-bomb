@@ -6,19 +6,22 @@
   "author": "Kyle Mathews <mathews.kyle@gmail.com>",
   "dependencies": {
     "axios": "^0.18.0",
-    "gatsby": "^2.0.118",
-    "gatsby-image": "^2.0.29",
-    "gatsby-plugin-manifest": "^2.0.17",
-    "gatsby-plugin-offline": "^2.0.23",
+    "date-fns": "^1.30.1",
+    "gatsby": "^2.1.18",
+    "gatsby-image": "^2.0.30",
+    "gatsby-plugin-manifest": "^2.0.19",
+    "gatsby-plugin-offline": "^2.0.24",
     "gatsby-plugin-page-transitions": "^1.0.7",
-    "gatsby-plugin-react-helmet": "^3.0.6",
-    "gatsby-plugin-sharp": "^2.0.20",
-    "gatsby-source-filesystem": "^2.0.20",
-    "gatsby-transformer-sharp": "^2.1.13",
+    "gatsby-plugin-react-helmet": "^3.0.7",
+    "gatsby-plugin-sharp": "^2.0.22",
+    "gatsby-plugin-transition-link": "^1.5.1",
+    "gatsby-source-filesystem": "^2.0.23",
+    "gatsby-transformer-sharp": "^2.1.14",
     "gatsby-v2-plugin-page-transitions": "^1.0.0",
-    "prop-types": "^15.6.2",
-    "react": "^16.8.1",
-    "react-dom": "^16.8.1",
+    "gsap": "^2.1.1",
+    "prop-types": "^15.7.2",
+    "react": "^16.8.3",
+    "react-dom": "^16.8.3",
     "react-helmet": "^5.2.0",
     "react-jss": "^8.6.1"
   },
@@ -46,7 +49,7 @@
   "devDependencies": {
     "gh-pages": "^2.0.1",
     "http-proxy-middleware": "^0.19.1",
-    "netlify-lambda": "^1.3.3",
+    "netlify-lambda": "^1.4.2",
     "npm-run-all": "^4.1.5"
   }
 }

@@ -36,44 +36,22 @@ const styles = {
 export default injectSheet(styles)(({ classes, pageContext, data }) => {
   const { title } = pageContext;
   const [videos, setVideos] = useState([]);
-  const [seasons, setSeasons] = useState(new Set());
   const [season, setSeason] = useState(null);
-
-  // initialize seasons list
-  useEffect(() => {
-    if (!seasons.length) {
-      const videos = [...data.allGiantBombVideo.edges];
-      let newSeasons = new Set();
-
-      videos.forEach(({ node }) => {
-        let season =
-          node.associations &&
-          node.associations.length > 0 &&
-          node.associations[0].name;
-        if (season) newSeasons.add(season);
-      });
-
-      setSeasons(newSeasons);
-    }
-  }, [data.allGiantBombVideo.edges]);
 
   // initialize & handle video list
   useEffect(() => {
     let filteredVideos = [...data.allGiantBombVideo.edges];
 
     if (season) {
-      filteredVideos = filteredVideos.filter(
-        ({ node }) =>
-          node.associations &&
-          node.associations.length > 0 &&
-          node.associations[0].name === season
-      );
+      filteredVideos = filteredVideos.filter(({ node }) => {
+        return node.season === season;
+      });
     } else {
-      setSeason(seasons[0]);
+      setSeason(data.allGiantBombShowSeason.edges[0].name);
     }
 
     setVideos(filteredVideos);
-  });
+  }, [season, videos]);
 
   return (
     <Layout>
@@ -84,15 +62,17 @@ export default injectSheet(styles)(({ classes, pageContext, data }) => {
       <h1>{title}</h1>
       <div className={classes.wrapper}>
         <div className={classes.seasons}>
-          {Array.from(seasons, item => (
-            <div
-              key={item}
-              className={classes.season}
-              onClick={() => setSeason(item)}
-            >
-              <h4>{item}</h4>
-            </div>
-          ))}
+          {data.allGiantBombShowSeason.edges
+            .map(({ node }) => (
+              <div
+                key={node.id}
+                className={classes.season}
+                onClick={() => setSeason(node.name)}
+              >
+                <h4>{node.name}</h4>
+              </div>
+            ))
+            .reverse()}
         </div>
         <Videos flexBasis="60%" data={videos} />
       </div>
@@ -102,15 +82,13 @@ export default injectSheet(styles)(({ classes, pageContext, data }) => {
 
 export const query = graphql`
   query ShowVideos($show_id: Int!) {
-    allGiantBombVideo(
-      filter: { video_show: { id: { eq: $show_id } } }
-      limit: 9999
-    ) {
+    allGiantBombVideo(filter: { video_show: { id: { eq: $show_id } } }) {
       edges {
         node {
           id
           name
           slug
+          season
           image {
             medium_url
           }
@@ -122,6 +100,15 @@ export const query = graphql`
             id
             name
           }
+        }
+      }
+    }
+    allGiantBombShowSeason(filter: { show_id: { eq: $show_id } }) {
+      edges {
+        node {
+          id
+          show_id
+          name
         }
       }
     }

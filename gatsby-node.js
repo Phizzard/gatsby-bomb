@@ -7,6 +7,8 @@
 // You can delete this file if you're not using it
 const axios = require("axios");
 const path = require("path");
+const getYear = require("date-fns/get_year");
+const getQuater = require("date-fns/get_quarter");
 
 exports.sourceNodes = async (
   { actions, createNodeId, createContentDigest },
@@ -58,6 +60,9 @@ exports.sourceNodes = async (
     video.slug = video.site_detail_url
       .replace("https://www.giantbomb.com/videos/", "")
       .slice(0, video.site_detail_url.length - 1);
+    video.season = `${getYear(video.publish_date)} - Q${getQuater(
+      video.publish_date
+    )}`;
     const nodeId = createNodeId(`giantbomb-video-${video.id}`);
     const nodeContent = JSON.stringify(video);
     const nodeData = Object.assign({}, video, {
@@ -71,6 +76,28 @@ exports.sourceNodes = async (
         contentDigest: createContentDigest(video)
       }
     });
+
+    const season = {
+      name: video.season,
+      show_id: video.video_show.id
+    };
+    const seasonNodeId = createNodeId(
+      `giantbomb-show-season-${season.name}-${season.show_id}`
+    );
+    const seasonNodeContent = JSON.stringify(season);
+
+    createNode(
+      Object.assign({}, season, {
+        id: seasonNodeId,
+        parent: null,
+        children: [],
+        internal: {
+          type: `GiantBombShowSeason`,
+          content: seasonNodeContent,
+          contentDigest: createContentDigest(season)
+        }
+      })
+    );
 
     return nodeData;
   };
