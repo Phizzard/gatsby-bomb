@@ -62,17 +62,21 @@ export default injectSheet(styles)(({ classes, pageContext, data }) => {
       <h1>{title}</h1>
       <div className={classes.wrapper}>
         <div className={classes.seasons}>
-          {data.allGiantBombShowSeason.edges
-            .map(({ node }) => (
-              <div
-                key={node.id}
-                className={classes.season}
-                onClick={() => setSeason(node.name)}
-              >
-                <h4>{node.name}</h4>
-              </div>
-            ))
-            .reverse()}
+          {data &&
+            data.allGiantBombShowSeason &&
+            data.allGiantBombShowSeason.edges &&
+            data.allGiantBombShowSeason.edges.length &&
+            data.allGiantBombShowSeason.edges
+              .map(({ node }) => (
+                <div
+                  key={node.id}
+                  className={classes.season}
+                  onClick={() => setSeason(node.name)}
+                >
+                  <h4>{node.name}</h4>
+                </div>
+              ))
+              .reverse()}
         </div>
         <Videos flexBasis="60%" data={videos} />
       </div>
