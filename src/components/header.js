@@ -1,6 +1,6 @@
-import { Link } from "gatsby";
 import PropTypes from "prop-types";
 import React from "react";
+import AniLink from "gatsby-plugin-transition-link/AniLink";
 
 const Header = ({ siteTitle }) => (
   <header
@@ -16,15 +16,18 @@ const Header = ({ siteTitle }) => (
       }}
     >
       <h1 style={{ margin: 0, fontSize: "20px" }}>
-        <Link
+        <AniLink
+          swipe
+          direction="right"
           to="/"
           style={{
             color: `white`,
             textDecoration: `none`
           }}
+          duration={0.4}
         >
           {siteTitle}
-        </Link>
+        </AniLink>
       </h1>
     </div>
   </header>

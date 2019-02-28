@@ -1,6 +1,6 @@
 import React from "react";
 import injectSheet from "react-jss";
-import { Link } from "gatsby";
+import AniLink from "gatsby-plugin-transition-link/AniLink";
 
 const styles = ({ screens }) => ({
   container: {
@@ -41,13 +41,19 @@ export default injectSheet(styles)(({ classes, data }) => {
     <div className={classes.container}>
       {data.map(({ node }) => (
         <div key={node.id} className={classes.item}>
-          <Link className={classes.image} to={`/${node.slug}`}>
+          <AniLink
+            className={classes.image}
+            to={`/${node.slug}`}
+            swipe
+            direction="left"
+            duration={0.4}
+          >
             <img
               className={classes.image}
               src={node.image.medium_url}
               alt={node.name}
             />
-          </Link>
+          </AniLink>
           <p className={classes.title}>{node.title}</p>
         </div>
       ))}
