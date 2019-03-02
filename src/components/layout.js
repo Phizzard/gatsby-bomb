@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { StaticQuery, graphql } from "gatsby";
 import Header from "./header";
 import "./layout.css";
-import { ThemeProvider } from "react-jss";
+import { ThemeProvider } from "emotion-theming";
 
 const theme = {
   screens: {

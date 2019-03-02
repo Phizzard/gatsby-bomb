@@ -1,39 +1,38 @@
 import React, { useState, useEffect } from "react";
-import injectSheet from "react-jss";
+import styled from "@emotion/styled";
 import Layout from "../components/layout";
 import { graphql } from "gatsby";
-import VideoPlayer from "../components/videoPlayer";
-import Videos from "../components/videos";
+import { VideoPlayer } from "../components/VideoPlayer";
+import { Videos } from "../components/Videos";
 
-const styles = {
-  wrapper: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-between"
-  },
-  seasons: {
-    display: "flex",
-    flexDirection: "column",
-    flexBasis: "35%"
-  },
-  season: {
-    transition: ".1s ease-in",
-    textAlign: "center",
-    padding: ".25rem 0",
-    marginBottom: "1rem",
-    border: "3px solid #fff",
-    borderRadius: ".15rem",
-    cursor: "pointer",
-    "&:hover": {
-      color: "#242628",
-      backgroundColor: "#fff"
-    },
-    "& h4": {
-      margin: 0
-    }
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+`;
+const Seasons = styled.div`
+  display: flex;
+  flex-direction: column;
+  flex-basis: 35%;
+`;
+const Season = styled.div`
+  transition: 0.1s ease-in;
+  text-align: center;
+  padding: 0.25rem 0;
+  margin-bottom: 1rem;
+  border: 3px solid #fff;
+  border-radius: 0.15rem;
+  cursor: pointer;
+  &:hover {
+    color: #242628;
+    background-color: #fff;
   }
-};
-export default injectSheet(styles)(({ classes, pageContext, data }) => {
+`;
+const SeasonName = styled.h4`
+  margin: 0;
+`;
+
+const Show = ({ pageContext, data }) => {
   const { title } = pageContext;
   const [videos, setVideos] = useState([]);
   const [season, setSeason] = useState(null);
@@ -60,29 +59,25 @@ export default injectSheet(styles)(({ classes, pageContext, data }) => {
         src={videos.length && videos[0].node.embed_player}
       />
       <h1>{title}</h1>
-      <div className={classes.wrapper}>
-        <div className={classes.seasons}>
+      <Wrapper>
+        <Seasons>
           {data &&
             data.allGiantBombShowSeason &&
             data.allGiantBombShowSeason.edges &&
             data.allGiantBombShowSeason.edges.length &&
             data.allGiantBombShowSeason.edges
               .map(({ node }) => (
-                <div
-                  key={node.id}
-                  className={classes.season}
-                  onClick={() => setSeason(node.name)}
-                >
-                  <h4>{node.name}</h4>
-                </div>
+                <Season key={node.id} onClick={() => setSeason(node.name)}>
+                  <SeasonName>{node.name}</SeasonName>
+                </Season>
               ))
               .reverse()}
-        </div>
+        </Seasons>
         <Videos flexBasis="60%" data={videos} />
-      </div>
+      </Wrapper>
     </Layout>
   );
-});
+};
 
 export const query = graphql`
   query ShowVideos($show_id: Int!) {
@@ -118,3 +113,5 @@ export const query = graphql`
     }
   }
 `;
+
+export default Show;

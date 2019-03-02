@@ -1,30 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { graphql } from "gatsby";
-import injectSheet from "react-jss";
+import styled from "@emotion/styled";
 import Layout from "../components/layout";
-import Shows from "../components/shows";
+import { Shows } from "../components/Shows";
 import SEO from "../components/seo";
 
-const styles = {
-  filters: {
-    display: "flex",
-    position: "relative",
-    justifyContent: "flex-start"
-  },
-  filter: {
-    cursor: "pointer",
-    margin: "0 .5rem",
-    color: props => (props.active === "true" ? "#fff" : "#999"),
-    "&:first-child": {
-      marginLeft: 0
-    },
-    "&:hover": {
-      color: "#fff"
-    }
-  }
-};
-
-const IndexPage = ({ classes, data }) => {
+const IndexPage = ({ data }) => {
   const [showList, setShowList] = useState([...data.allGiantBombShow.edges]);
   const [activeFilter, setActiveFilter] = useState("all");
 
@@ -53,36 +34,50 @@ const IndexPage = ({ classes, data }) => {
       }}
     >
       <SEO title="Home" keywords={[`gatsby`, `application`, `react`]} />
-      <div className={classes.filters}>
-        <Filter
+      <Filters>
+        <StyledFilter
           active={(activeFilter === "all").toString()}
           onClick={() => setActiveFilter("all")}
         >
           All
-        </Filter>
-        <Filter
+        </StyledFilter>
+        <StyledFilter
           active={(activeFilter === "free").toString()}
           onClick={() => setActiveFilter("free")}
         >
           Free
-        </Filter>
-        <Filter
+        </StyledFilter>
+        <StyledFilter
           active={(activeFilter === "premium").toString()}
           onClick={() => setActiveFilter("premium")}
         >
           Premium
-        </Filter>
-      </div>
+        </StyledFilter>
+      </Filters>
       <Shows data={showList} />
     </Layout>
   );
 };
 
-const Filter = injectSheet(styles)(({ classes, children, ...atrs }) => (
-  <span className={classes.filter} {...atrs}>
-    {children}
-  </span>
-));
+const Filter = ({ children, ...atrs }) => <span {...atrs}>{children}</span>;
+
+const Filters = styled.div`
+  display: flex;
+  position: relative;
+  justify-content: flex-start;
+`;
+
+const StyledFilter = styled(Filter)`
+  cursor: pointer;
+  margin: 0 0.5rem;
+  color: ${props => (props.active === true ? "#fff" : "#999")};
+  &:first-child {
+    margin-left: 0;
+  }
+  &:hover {
+    color: #fff;
+  }
+`;
 
 export const query = graphql`
   query ShowsQuery {
@@ -103,4 +98,4 @@ export const query = graphql`
   }
 `;
 
-export default injectSheet(styles)(IndexPage);
+export default IndexPage;

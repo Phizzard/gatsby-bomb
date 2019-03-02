@@ -125,7 +125,7 @@ exports.sourceNodes = async (
 
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions;
-  const giantBombShowTemplate = path.resolve("src/templates/Show.js");
+  const giantBombShowTemplate = path.resolve("src/templates/Show.jsx");
 
   const result = await graphql(`
     {
