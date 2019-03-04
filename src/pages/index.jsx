@@ -31,26 +31,22 @@ const IndexPage = ({ data }) => {
     <Layout
       style={{
         marginTop: "1.45rem"
-      }}
-    >
+      }}>
       <SEO title="Home" keywords={[`gatsby`, `application`, `react`]} />
       <Filters>
         <StyledFilter
           active={(activeFilter === "all").toString()}
-          onClick={() => setActiveFilter("all")}
-        >
+          onClick={() => setActiveFilter("all")}>
           All
         </StyledFilter>
         <StyledFilter
           active={(activeFilter === "free").toString()}
-          onClick={() => setActiveFilter("free")}
-        >
+          onClick={() => setActiveFilter("free")}>
           Free
         </StyledFilter>
         <StyledFilter
           active={(activeFilter === "premium").toString()}
-          onClick={() => setActiveFilter("premium")}
-        >
+          onClick={() => setActiveFilter("premium")}>
           Premium
         </StyledFilter>
       </Filters>
@@ -71,7 +67,7 @@ const StyledFilter = styled(Filter)`
   cursor: pointer;
   margin: 0 0.5rem;
   color: ${props => (props.active === true ? "#fff" : "#999")};
-  &:first-child {
+  &:first-of-type {
     margin-left: 0;
   }
   &:hover {

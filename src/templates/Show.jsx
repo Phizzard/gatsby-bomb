@@ -4,33 +4,8 @@ import Layout from "../components/layout";
 import { graphql } from "gatsby";
 import { VideoPlayer } from "../components/VideoPlayer";
 import { Videos } from "../components/Videos";
-
-const Wrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-`;
-const Seasons = styled.div`
-  display: flex;
-  flex-direction: column;
-  flex-basis: 35%;
-`;
-const Season = styled.div`
-  transition: 0.1s ease-in;
-  text-align: center;
-  padding: 0.25rem 0;
-  margin-bottom: 1rem;
-  border: 3px solid #fff;
-  border-radius: 0.15rem;
-  cursor: pointer;
-  &:hover {
-    color: #242628;
-    background-color: #fff;
-  }
-`;
-const SeasonName = styled.h4`
-  margin: 0;
-`;
+import { MenuItem } from "../components/MenuItem";
+import Sticky from "react-sticky-el";
 
 const Show = ({ pageContext, data }) => {
   const { title } = pageContext;
@@ -60,24 +35,41 @@ const Show = ({ pageContext, data }) => {
       />
       <h1>{title}</h1>
       <Wrapper>
-        <Seasons>
+        <SeasonsMenu
+          holderProps={{
+            style: {
+              flexBasis: "40%"
+            }
+          }}>
           {data &&
             data.allGiantBombShowSeason &&
             data.allGiantBombShowSeason.edges &&
             data.allGiantBombShowSeason.edges.length &&
             data.allGiantBombShowSeason.edges
               .map(({ node }) => (
-                <Season key={node.id} onClick={() => setSeason(node.name)}>
-                  <SeasonName>{node.name}</SeasonName>
-                </Season>
+                <MenuItem key={node.id} onClick={() => setSeason(node.name)}>
+                  {node.name}
+                </MenuItem>
               ))
               .reverse()}
-        </Seasons>
+        </SeasonsMenu>
         <Videos flexBasis="60%" data={videos} />
       </Wrapper>
     </Layout>
   );
 };
+
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+`;
+const SeasonsMenu = styled(Sticky)`
+  display: flex;
+  flex-direction: column;
+  flex-basis: 40%;
+  width: 100%;
+`;
 
 export const query = graphql`
   query ShowVideos($show_id: Int!) {
