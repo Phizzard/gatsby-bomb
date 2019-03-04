@@ -1,15 +1,17 @@
 import React from "react";
 import styled from "@emotion/styled";
+import { Card } from "./Card";
 
 export const Videos = ({ data }) => {
   return (
     <Container>
       {data
         .map(({ node }) => (
-          <Item key={node.id}>
-            <Image alt={node.name} src={node.image.medium_url} />
-            <Title>{node.name}</Title>
-          </Item>
+          <VideoCard
+            key={node.id}
+            title={node.name}
+            image={node.image.medium_url}
+          />
         ))
         .reverse()}
     </Container>
@@ -19,24 +21,12 @@ export const Videos = ({ data }) => {
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  flex-basis: ${props => (props.flexBasis ? props.flexBasis : "100%")};
+  flex-basis: ${props => (props.flexBasis ? props.flexBasis : "75%")};
+  padding: 0;
 `;
 
-const Item = styled.div`
-  flex-basis: 100%;
-  position: relative;
-`;
-const Image = styled.img`
-  width: 100%;
-  height: 100%;
-`;
-const Title = styled.p`
-  position: absolute;
-  bottom: 0.5rem;
-  left: 0.5rem;
-  margin-bottom: 0;
-  padding: 0.15rem 0.35rem;
-  background-color: #242628;
-  font-size: 14px;
-  border-radius: 0.15rem;
+const VideoCard = styled(Card)`
+  :first-of-type {
+    margin: 0 0;
+  }
 `;

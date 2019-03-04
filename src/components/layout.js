@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { StaticQuery, graphql } from "gatsby";
 import Header from "./header";
+import styled from "@emotion/styled";
 import "./layout.css";
 import { ThemeProvider } from "emotion-theming";
 
@@ -29,22 +30,13 @@ const Layout = ({ style, children }) => (
       <ThemeProvider theme={theme}>
         <>
           <Header siteTitle={data.site.siteMetadata.title} />
-          <div
-            style={{
-              margin: `0 auto`,
-              maxWidth: 2560,
-              padding: `0px 2rem 1.45rem`,
-              paddingTop: 0,
-              backgroundColor: "#242628"
-            }}
-          >
+          <Body>
             <main style={style}>{children}</main>
             <footer
               style={{
                 fontSize: "12px",
                 color: "#999"
-              }}
-            >
+              }}>
               © {new Date().getFullYear()} Philip Tietjen, Built with
               {` `}
               <a style={{ color: "#999" }} href="https://www.gatsbyjs.org">
@@ -55,12 +47,23 @@ const Layout = ({ style, children }) => (
                 GiantBomb API
               </a>
             </footer>
-          </div>
+          </Body>
         </>
       </ThemeProvider>
     )}
   />
 );
+
+const Body = styled.div`
+  margin: 0 auto;
+  max-width: 2560px;
+  padding: 0px 0.5rem 1.4rem;
+  padding-top: 0;
+  background-color: #242628;
+  @media screen and (min-width: ${props => props.theme.screens.tablet}) {
+    padding: 0px 2rem 1.45rem;
+  }
+`;
 
 Layout.propTypes = {
   children: PropTypes.node.isRequired
