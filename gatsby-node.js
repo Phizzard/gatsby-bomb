@@ -56,13 +56,29 @@ exports.sourceNodes = async (
     createNode(nodeData);
   });
 
+  // Show Ids that will have seasons based off of associations
+  const SeasonalShowIds = [2];
+  let seasonNames = new Set();
   const processVideo = video => {
     video.slug = video.site_detail_url
       .replace("https://www.giantbomb.com/videos/", "")
       .slice(0, video.site_detail_url.length - 1);
-    video.season = `${getYear(video.publish_date)} - Q${getQuater(
-      video.publish_date
-    )}`;
+
+    video.season = `${getYear(video.publish_date)}`;
+
+    if (SeasonalShowIds.includes(video.video_show.id)) {
+      if (video.associations.length > 0) {
+        video.season = video.associations[0].name;
+        seasonNames.add(video.associations[0].name);
+      } else {
+        seasonNames.forEach(season => {
+          if (video.name.includes(season)) {
+            video.season = video.name.match(RegExp(season))[0];
+          }
+        });
+      }
+    }
+
     const nodeId = createNodeId(`giantbomb-video-${video.id}`);
     const nodeContent = JSON.stringify(video);
     const nodeData = Object.assign({}, video, {
