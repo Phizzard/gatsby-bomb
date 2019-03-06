@@ -29,18 +29,19 @@ const Show = ({ pageContext, data }) => {
 
   return (
     <Layout>
-      <VideoPlayer
+      {/*<VideoPlayer
         title={videos.length && videos[0].node.name}
         src={videos.length && videos[0].node.embed_player}
-      />
+      />*/}
       <h1>{title}</h1>
       <Wrapper>
         <SeasonsMenu
           holderProps={{
             style: {
-              flexBasis: "40%"
+              flexBasis: "30%"
             }
-          }}>
+          }}
+        >
           {data &&
             data.allGiantBombShowSeason &&
             data.allGiantBombShowSeason.edges &&
@@ -67,7 +68,7 @@ const Wrapper = styled.div`
 const SeasonsMenu = styled(Sticky)`
   display: flex;
   flex-direction: column;
-  flex-basis: 40%;
+  flex-basis: 30%;
   width: 100%;
 `;
 
@@ -80,17 +81,13 @@ export const query = graphql`
           name
           slug
           season
+          deck
           image {
             medium_url
+            small_url
           }
           embed_player
-          video_show {
-            id
-          }
-          associations {
-            id
-            name
-          }
+          length_seconds
         }
       }
     }
