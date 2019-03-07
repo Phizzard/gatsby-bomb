@@ -155,6 +155,7 @@ exports.createPages = async ({ graphql, actions }) => {
             image {
               screen_url
               screen_large_url
+              medium_url
             }
             premium
           }

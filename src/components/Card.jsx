@@ -1,5 +1,5 @@
 import React from "react";
-import { string, array } from "prop-types";
+import { string, any } from "prop-types";
 import styled from "@emotion/styled";
 import AniLink from "gatsby-plugin-transition-link/AniLink";
 
@@ -17,7 +17,6 @@ export const Card = ({ badge, image, to, className, onClick, children }) => {
         <img src={image} alt={badge} />
         <Badge>{badge}</Badge>
       </Image>
-
       {children}
     </CardContainer>
   );
@@ -25,7 +24,7 @@ export const Card = ({ badge, image, to, className, onClick, children }) => {
 
 Card.propTypes = {
   className: string,
-  children: array,
+  children: any,
   to: string
 };
 
@@ -45,6 +44,7 @@ const Container = styled.div`
 
 const Image = styled.div`
   position: relative;
+  width: 100%;
   img {
     height: 100%;
     width: 100%;

@@ -28,30 +28,30 @@ const IndexPage = ({ data }) => {
   });
 
   return (
-    <Layout
-      style={{
-        marginTop: "1.45rem"
-      }}>
+    <StyledLayout>
       <SEO title="Home" keywords={[`gatsby`, `application`, `react`]} />
       <Filters>
         <StyledFilter
           active={(activeFilter === "all").toString()}
-          onClick={() => setActiveFilter("all")}>
+          onClick={() => setActiveFilter("all")}
+        >
           All
         </StyledFilter>
         <StyledFilter
           active={(activeFilter === "free").toString()}
-          onClick={() => setActiveFilter("free")}>
+          onClick={() => setActiveFilter("free")}
+        >
           Free
         </StyledFilter>
         <StyledFilter
           active={(activeFilter === "premium").toString()}
-          onClick={() => setActiveFilter("premium")}>
+          onClick={() => setActiveFilter("premium")}
+        >
           Premium
         </StyledFilter>
       </Filters>
       <Shows data={showList} />
-    </Layout>
+    </StyledLayout>
   );
 };
 
@@ -73,6 +73,10 @@ const StyledFilter = styled(Filter)`
   &:hover {
     color: #fff;
   }
+`;
+
+const StyledLayout = styled(Layout)`
+  padding: 0.5rem;
 `;
 
 export const query = graphql`

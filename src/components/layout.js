@@ -15,7 +15,7 @@ const theme = {
   }
 };
 
-const Layout = ({ style, children }) => (
+const Layout = ({ children, ...attrs }) => (
   <StaticQuery
     query={graphql`
       query SiteTitleQuery {
@@ -31,12 +31,13 @@ const Layout = ({ style, children }) => (
         <>
           <Header siteTitle={data.site.siteMetadata.title} />
           <Body>
-            <main style={style}>{children}</main>
+            <main {...attrs}>{children}</main>
             <footer
               style={{
                 fontSize: "12px",
                 color: "#999"
-              }}>
+              }}
+            >
               © {new Date().getFullYear()} Philip Tietjen, Built with
               {` `}
               <a style={{ color: "#999" }} href="https://www.gatsbyjs.org">
@@ -57,12 +58,8 @@ const Layout = ({ style, children }) => (
 const Body = styled.div`
   margin: 0 auto;
   max-width: 2560px;
-  padding: 0px 0.5rem 1.4rem;
   padding-top: 0;
   background-color: #242628;
-  @media screen and (min-width: ${props => props.theme.screens.tablet}) {
-    padding: 0px 2rem 1.45rem;
-  }
 `;
 
 Layout.propTypes = {

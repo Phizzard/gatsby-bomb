@@ -1,12 +1,11 @@
 import React from "react";
 import styled from "@emotion/styled";
-import arrow from "../images/arrow-right-white-32.png";
-
+import { MdKeyboardArrowRight } from "react-icons/md";
 export const MenuItem = ({ children, ...attrs }) => {
   return (
     <Container {...attrs}>
       <Text>{children}</Text>
-      <Icon src={arrow} />
+      <MdKeyboardArrowRight />
     </Container>
   );
 };
@@ -24,6 +23,9 @@ const Container = styled.div`
   }
   :hover {
     background-color: #111;
+  }
+  svg {
+    font-size: 1.5rem;
   }
 `;
 

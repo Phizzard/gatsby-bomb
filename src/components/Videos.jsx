@@ -2,9 +2,9 @@ import React from "react";
 import styled from "@emotion/styled";
 import { Card } from "./Card";
 
-export const Videos = ({ data }) => {
+export const Videos = ({ data, ...atrs }) => {
   return (
-    <Container>
+    <Container {...atrs}>
       {data
         .map(({ node }) => {
           let sec = node.length_seconds;
@@ -21,7 +21,7 @@ export const Videos = ({ data }) => {
             <VideoCard
               key={node.id}
               badge={length}
-              image={node.image.medium_url}
+              image={node.image.super_url}
             >
               <Deck>
                 <h3>{node.name}</h3>
@@ -38,12 +38,14 @@ export const Videos = ({ data }) => {
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  flex-basis: ${props => (props.flexBasis ? props.flexBasis : "70%")};
-  align-items: center;
   padding: 0;
+  @media screen and (min-width: ${props => props.theme.screens.tablet}) {
+    flex-basis: 70%;
+  }
 `;
 
 const VideoCard = styled(Card)`
+  justify-content: center;
   flex-wrap: wrap;
   @media screen and (min-width: ${props => props.theme.screens.tablet}) {
     flex-wrap: nowrap;
@@ -52,10 +54,6 @@ const VideoCard = styled(Card)`
     margin-top: 0;
     margin-left: 0;
     margin-right: 0;
-  }
-  img {
-    height: initial;
-    width: initial;
   }
 `;
 
@@ -67,12 +65,14 @@ const Deck = styled.div`
   padding: 1.5rem;
   align-items: center;
   @media screen and (min-width: ${props => props.theme.screens.tablet}) {
-    width: 50%;
+    width: 60%;
   }
   p,
   h3 {
     text-align: center;
   }
-  h3 {
+  p {
+    margin: 0;
+    font-size: 0.8rem;
   }
 `;
