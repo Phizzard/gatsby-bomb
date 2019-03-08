@@ -5,14 +5,16 @@ import { Card } from "./Card";
 export const Shows = ({ data }) => {
   return (
     <Container>
-      {data.map(({ node }) => (
-        <ShowCard
-          key={node.id}
-          badge={node.title}
-          image={node.image.medium_url}
-          to={node.slug}
-        />
-      ))}
+      {data.map(({ node }) => {
+        return (
+          <ShowCard
+            key={node.id}
+            badge={node.title}
+            image={node.localImage.childImageSharp.fluid}
+            to={node.slug}
+          />
+        );
+      })}
     </Container>
   );
 };

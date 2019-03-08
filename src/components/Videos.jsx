@@ -21,7 +21,11 @@ export const Videos = ({ data, ...atrs }) => {
             <VideoCard
               key={node.id}
               badge={length}
-              image={node.image.super_url}
+              image={
+                node.localImage.childImageSharp
+                  ? node.localImage.childImageSharp.fluid
+                  : node.image.screen_url
+              }
             >
               <Deck>
                 <h3>{node.name}</h3>

@@ -8,7 +8,41 @@
 const axios = require("axios");
 const path = require("path");
 const getYear = require("date-fns/get_year");
-const getQuater = require("date-fns/get_quarter");
+const { createRemoteFileNode } = require(`gatsby-source-filesystem`);
+
+exports.onCreateNode = async ({
+  node,
+  actions,
+  store,
+  cache,
+  createNodeId
+}) => {
+  const { createNode } = actions;
+
+  let fileNode;
+  if (
+    node.internal.type === "GiantBombVideo" ||
+    node.internal.type === "GiantBombShow"
+  ) {
+    try {
+      fileNode = await createRemoteFileNode({
+        url: node.image.super_url,
+        parentNodeId: node.id,
+        store,
+        cache,
+        createNode,
+        createNodeId
+      });
+    } catch (e) {
+      console.error("gatsby-plugin-remote-images ERROR:", e);
+    }
+  }
+  // Adds a field `localImage` or custom name to the node
+  // ___NODE appendix tells Gatsby that this field will link to another node
+  if (fileNode) {
+    node[`localImage___NODE`] = fileNode.id;
+  }
+};
 
 exports.sourceNodes = async (
   { actions, createNodeId, createContentDigest },
@@ -46,7 +80,7 @@ exports.sourceNodes = async (
       params: {
         format: "json",
         api_key: API_KEY,
-        limit: 10 // Temporary limit while developing
+        limit: 6 // Temporary limit while developing
       }
     }
   );
@@ -152,10 +186,16 @@ exports.createPages = async ({ graphql, actions }) => {
             show_id
             title
             slug
-            image {
-              screen_url
-              screen_large_url
-              medium_url
+            localImage {
+              childImageSharp {
+                fluid {
+                  src
+                  srcSet
+                  sizes
+                  aspectRatio
+                  tracedSVG
+                }
+              }
             }
             premium
           }

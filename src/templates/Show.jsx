@@ -6,9 +6,10 @@ import { graphql } from "gatsby";
 import { Videos } from "../components/Videos";
 import { MenuItem } from "../components/MenuItem";
 import { MdReorder } from "react-icons/md";
+import Img from "gatsby-image";
 
 const Show = ({ pageContext, data }) => {
-  const { title, image } = pageContext;
+  const { title, localImage } = pageContext;
   const [videos, setVideos] = useState([]);
   const [season, setSeason] = useState(null);
   const [isExpanded, setIsExpanded] = useState(false);
@@ -37,7 +38,7 @@ const Show = ({ pageContext, data }) => {
       <Wrapper>
         <SeasonsMenu expand={isExpanded}>
           <MenuHeader>
-            <img src={image.medium_url} alt={title} />
+            <Img fluid={localImage.childImageSharp.fluid} alt={title} />
           </MenuHeader>
           {data &&
             data.allGiantBombShowSeason &&
@@ -134,10 +135,16 @@ export const query = graphql`
           slug
           season
           deck
-          image {
-            medium_url
-            small_url
-            super_url
+          localImage {
+            name
+            childImageSharp {
+              fluid {
+                src
+                srcSet
+                sizes
+                aspectRatio
+              }
+            }
           }
           embed_player
           length_seconds

@@ -88,9 +88,17 @@ export const query = graphql`
           title
           slug
           premium
-          image {
-            small_url
-            medium_url
+          localImage {
+            name
+            childImageSharp {
+              fluid {
+                src
+                srcSet
+                sizes
+                aspectRatio
+                tracedSVG
+              }
+            }
           }
         }
       }
