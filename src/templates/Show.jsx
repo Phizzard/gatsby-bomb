@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from "@emotion/styled";
 import Layout from "../components/layout";
 import { graphql } from "gatsby";
-import { VideoPlayer } from "../components/VideoPlayer";
+//import { VideoPlayer } from "../components/VideoPlayer";
 import { Videos } from "../components/Videos";
 import { MenuItem } from "../components/MenuItem";
 import { MdReorder } from "react-icons/md";

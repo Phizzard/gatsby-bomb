@@ -34,8 +34,4 @@ const Text = styled.p`
   margin: 0;
 `;
 
-const Icon = styled.img`
-  width: 2rem;
-  color: #fff;
-`;
 export default { MenuItem };
