@@ -3,16 +3,10 @@ import { string, any } from "prop-types";
 import styled from "@emotion/styled";
 import AniLink from "gatsby-plugin-transition-link/AniLink";
 
-export const Card = ({ badge, image, to, className, onClick, children }) => {
+export const Card = ({ badge, image, to, children, ...attrs }) => {
   const CardContainer = to ? LinkContainer : Container;
   return (
-    <CardContainer
-      className={className}
-      to={`/${to}`}
-      swipe
-      direction="left"
-      onClick={() => onClick}
-    >
+    <CardContainer to={`/${to}`} swipe direction="left" {...attrs}>
       <Image>
         <img src={image} alt={badge} />
         <Badge>{badge}</Badge>

@@ -8,10 +8,10 @@ import { ThemeProvider } from "emotion-theming";
 
 const theme = {
   screens: {
-    phone: "320px",
-    tablet: "768px",
-    desktop: "1024px",
-    hdDesktop: "2560px"
+    phone: "321px",
+    tablet: "769px",
+    desktop: "1025px",
+    hdDesktop: "2561px"
   }
 };
 

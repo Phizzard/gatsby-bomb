@@ -45,7 +45,13 @@ const Show = ({ pageContext, data }) => {
             data.allGiantBombShowSeason.edges.length &&
             data.allGiantBombShowSeason.edges
               .map(({ node }) => (
-                <MenuItem key={node.id} onClick={() => setSeason(node.name)}>
+                <MenuItem
+                  key={node.id}
+                  onClick={() => {
+                    setSeason(node.name);
+                    setIsExpanded(false);
+                  }}
+                >
                   {node.name}
                 </MenuItem>
               ))
@@ -68,7 +74,7 @@ const Wrapper = styled.div`
 `;
 
 const SeasonsMenu = styled.div`
-  position: absolute;
+  position: fixed;
   background-color: #000;
   left: ${props => (props.expand ? "0" : "-150%")};
   display: flex;
