@@ -24,12 +24,13 @@ exports.onCreateNode = async ({
   } = actions;
 
   let fileNode;
-  if (node && node.image && node.image.super_url && node.image.super_url.includes(".gif"))
-    console.log(node.image.super_url);
+
   if (
     node.internal.type === "GiantBombVideo" ||
     node.internal.type === "GiantBombShow" ||
-    (node && node.image && node.image.super_url && !node.image.super_url.includes(".gif"))
+    (node && node.image && node.image.super_url && !node.image.super_url.includes(".gif")) ||
+    (node && node.image && node.image.super_url && !node.image.super_url !== "https://www.giantbomb.com/api/image/scale_large/2673129-screen%20shot%202014-08-21%20at%209.26.33%20pm.png") ||
+    (node && node.image && node.image.super_url && !node.image.super_url !== "https://www.giantbomb.com/api/image/scale_large/2673129-screen%20shot%202014-06-24%20at%209.26.33%20pm.png")
   ) {
     try {
       fileNode = await createRemoteFileNode({
