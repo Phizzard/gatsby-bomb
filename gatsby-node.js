@@ -8,7 +8,9 @@
 const axios = require("axios");
 const path = require("path");
 const getYear = require("date-fns/get_year");
-const { createRemoteFileNode } = require(`gatsby-source-filesystem`);
+const {
+  createRemoteFileNode
+} = require(`gatsby-source-filesystem`);
 
 exports.onCreateNode = async ({
   node,
@@ -17,12 +19,17 @@ exports.onCreateNode = async ({
   cache,
   createNodeId
 }) => {
-  const { createNode } = actions;
+  const {
+    createNode
+  } = actions;
 
   let fileNode;
+  if (node && node.image && node.image.super_url && node.image.super_url.includes(".gif"))
+    console.log(node.image.super_url);
   if (
     node.internal.type === "GiantBombVideo" ||
-    node.internal.type === "GiantBombShow"
+    node.internal.type === "GiantBombShow" ||
+    (node && node.image && node.image.super_url && !node.image.super_url.includes(".gif"))
   ) {
     try {
       fileNode = await createRemoteFileNode({
@@ -44,12 +51,17 @@ exports.onCreateNode = async ({
   }
 };
 
-exports.sourceNodes = async (
-  { actions, createNodeId, createContentDigest },
+exports.sourceNodes = async ({
+    actions,
+    createNodeId,
+    createContentDigest
+  },
   configOptions
 ) => {
   const API_KEY = "09dc277eefa643ac45893ff6e2812e12a0335fd6";
-  const { createNode } = actions;
+  const {
+    createNode
+  } = actions;
   let showIds = [];
 
   const processShow = show => {
@@ -74,9 +86,10 @@ exports.sourceNodes = async (
     return nodeData;
   };
 
-  const { data } = await axios.get(
-    "https://www.giantbomb.com/api/video_shows",
-    {
+  const {
+    data
+  } = await axios.get(
+    "https://www.giantbomb.com/api/video_shows", {
       params: {
         format: "json",
         api_key: API_KEY,
@@ -173,8 +186,13 @@ exports.sourceNodes = async (
   });
 };
 
-exports.createPages = async ({ graphql, actions }) => {
-  const { createPage } = actions;
+exports.createPages = async ({
+  graphql,
+  actions
+}) => {
+  const {
+    createPage
+  } = actions;
   const giantBombShowTemplate = path.resolve("src/templates/Show.jsx");
 
   const result = await graphql(`
@@ -204,7 +222,9 @@ exports.createPages = async ({ graphql, actions }) => {
     }
   `);
 
-  result.data.allGiantBombShow.edges.forEach(({ node }) => {
+  result.data.allGiantBombShow.edges.forEach(({
+    node
+  }) => {
     createPage({
       path: node.slug,
       component: giantBombShowTemplate,

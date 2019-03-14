@@ -91,12 +91,9 @@ export const query = graphql`
           localImage {
             name
             childImageSharp {
-              fluid {
-                src
-                srcSet
-                sizes
-                aspectRatio
-                tracedSVG
+              fluid(maxWidth: 500, quality: 100) {
+                ...GatsbyImageSharpFluid
+                presentationWidth
               }
             }
           }

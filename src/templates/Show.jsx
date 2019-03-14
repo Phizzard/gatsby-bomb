@@ -51,8 +51,7 @@ const Show = ({ pageContext, data }) => {
                   onClick={() => {
                     setSeason(node.name);
                     setIsExpanded(false);
-                  }}
-                >
+                  }}>
                   {node.name}
                 </MenuItem>
               ))
@@ -135,14 +134,15 @@ export const query = graphql`
           slug
           season
           deck
+          image {
+            screen_url
+          }
           localImage {
             name
             childImageSharp {
-              fluid {
-                src
-                srcSet
-                sizes
-                aspectRatio
+              fluid(maxWidth: 500, quality: 100) {
+                ...GatsbyImageSharpFluid
+                presentationWidth
               }
             }
           }
