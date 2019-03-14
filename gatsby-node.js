@@ -27,22 +27,23 @@ exports.onCreateNode = async ({
 
   if (
     node.internal.type === "GiantBombVideo" ||
-    node.internal.type === "GiantBombShow" ||
-    (node && node.image && node.image.super_url && !node.image.super_url.includes(".gif")) ||
-    (node && node.image && node.image.super_url && !node.image.super_url !== "https://www.giantbomb.com/api/image/scale_large/2673129-screen%20shot%202014-08-21%20at%209.26.33%20pm.png") ||
-    (node && node.image && node.image.super_url && !node.image.super_url !== "https://www.giantbomb.com/api/image/scale_large/2673129-screen%20shot%202014-06-24%20at%209.26.33%20pm.png")
+    node.internal.type === "GiantBombShow"
   ) {
-    try {
-      fileNode = await createRemoteFileNode({
-        url: node.image.super_url,
-        parentNodeId: node.id,
-        store,
-        cache,
-        createNode,
-        createNodeId
-      });
-    } catch (e) {
-      console.error("gatsby-plugin-remote-images ERROR:", e);
+    if ((node && node.image && node.image.super_url && !node.image.super_url.includes(".gif")) ||
+      (node && node.image && node.image.super_url && node.image.super_url !== "https://www.giantbomb.com/api/image/scale_large/2673129-screen%20shot%202014-08-21%20at%209.26.33%20pm.png") ||
+      (node && node.image && node.image.super_url && node.image.super_url !== "https://www.giantbomb.com/api/image/scale_large/2673129-screen%20shot%202014-06-24%20at%209.26.33%20pm.png")) {
+      try {
+        fileNode = await createRemoteFileNode({
+          url: node.image.super_url,
+          parentNodeId: node.id,
+          store,
+          cache,
+          createNode,
+          createNodeId
+        });
+      } catch (e) {
+        console.error("gatsby-plugin-remote-images ERROR:", e);
+      }
     }
   }
   // Adds a field `localImage` or custom name to the node

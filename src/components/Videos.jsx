@@ -24,9 +24,8 @@ export const Videos = ({ data, ...atrs }) => {
               image={
                 node.localImage.childImageSharp
                   ? node.localImage.childImageSharp.fluid
-                  : node.image.screen_url
-              }
-            >
+                  : node.image.super_url
+              }>
               <Deck>
                 <h3>{node.name}</h3>
                 <p>{node.deck}</p>

@@ -135,7 +135,7 @@ export const query = graphql`
           season
           deck
           image {
-            screen_url
+            super_url
           }
           localImage {
             name
