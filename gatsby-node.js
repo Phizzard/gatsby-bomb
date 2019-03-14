@@ -29,9 +29,10 @@ exports.onCreateNode = async ({
     node.internal.type === "GiantBombVideo" ||
     node.internal.type === "GiantBombShow"
   ) {
-    if ((node && node.image && node.image.super_url && !node.image.super_url.includes(".gif")) ||
-      (node && node.image && node.image.super_url && node.image.super_url !== "https://www.giantbomb.com/api/image/scale_large/2673129-screen%20shot%202014-08-21%20at%209.26.33%20pm.png") ||
-      (node && node.image && node.image.super_url && node.image.super_url !== "https://www.giantbomb.com/api/image/scale_large/2673129-screen%20shot%202014-06-24%20at%209.26.33%20pm.png")) {
+    if ((node && node.image && node.image.super_url && !node.image.super_url.includes(".gif")) &&
+      (node && node.image && node.image.super_url && !node.image.super_url.includes("screen%20shot%202014-08-21%20at%209.26.33%20pm.png")) &&
+      (node && node.image && node.image.super_url && !node.image.super_url.includes("screen%20shot%202014-06-24%20at%209.26.33%20pm.png")) &&
+      (node && node.image && node.image.super_url && !node.image.super_url.includes("2649689-screen%20shot%202014-06-24%20at%209.29.35%20pm.png"))) {
       try {
         fileNode = await createRemoteFileNode({
           url: node.image.super_url,

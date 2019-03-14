@@ -41,7 +41,7 @@
     "start:app": "npm run develop",
     "start:lambda": "netlify-lambda serve src/lambda",
     "build": "run-p build:**",
-    "build:app": "gatsby build --force",
+    "build:app": "gatsby build",
     "build:lambda": "netlify-lambda build src/lambda",
     "deploy": "gatsby build --prefix-paths && gh-pages -d public"
   },
