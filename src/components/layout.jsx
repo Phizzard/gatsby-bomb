@@ -1,9 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { StaticQuery, graphql } from "gatsby";
-import Header from "./header";
+import Header from "./Header";
 import styled from "@emotion/styled";
 import "./layout.css";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 import { ThemeProvider } from "emotion-theming";
 
 const theme = {
@@ -29,27 +31,34 @@ const Layout = ({ children, ...attrs }) => (
     render={data => (
       <ThemeProvider theme={theme}>
         <>
-          <Header siteTitle={data.site.siteMetadata.title} />
+          <Header siteTitle={data.site.siteMetadata.title} />{" "}
           <Body>
-            <main {...attrs}>{children}</main>
+            <main {...attrs}> {children} </main>{" "}
             <footer
               style={{
                 fontSize: "12px",
                 color: "#999"
-              }}
-            >
-              © {new Date().getFullYear()} Philip Tietjen, Built with
-              {` `}
-              <a style={{ color: "#999" }} href="https://www.gatsbyjs.org">
-                Gatsby
-              </a>
-              {` & `}
-              <a style={{ color: "#999" }} href="https://www.giantbomb.com/api">
-                GiantBomb API
-              </a>
-            </footer>
-          </Body>
-        </>
+              }}>
+              ©{new Date().getFullYear()}
+              Philip Tietjen, Built with {` `}{" "}
+              <a
+                style={{
+                  color: "#999"
+                }}
+                href="https://www.gatsbyjs.org">
+                Gatsby{" "}
+              </a>{" "}
+              {` & `}{" "}
+              <a
+                style={{
+                  color: "#999"
+                }}
+                href="https://www.giantbomb.com/api">
+                GiantBomb API{" "}
+              </a>{" "}
+            </footer>{" "}
+          </Body>{" "}
+        </>{" "}
       </ThemeProvider>
     )}
   />

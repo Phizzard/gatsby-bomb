@@ -4,11 +4,11 @@ import styled from "@emotion/styled";
 import AniLink from "gatsby-plugin-transition-link/AniLink";
 import Img from "gatsby-image";
 
-export const Card = ({ badge, image, to, children, ...attrs }) => {
+export const Card = ({ badge, image, to, children, height, ...attrs }) => {
   const CardContainer = to ? LinkContainer : Container;
   return (
     <CardContainer to={`/${to}`} swipe direction="left" {...attrs}>
-      <Image>
+      <Image height={height}>
         <Img fluid={image} alt={badge} />
         <Badge>{badge}</Badge>
       </Image>
@@ -40,6 +40,7 @@ const Container = styled.div`
 const Image = styled.div`
   position: relative;
   width: 100%;
+  height: ${props => (props.height ? props.height : `initial`)};
   img {
     height: 100%;
     width: 100%;

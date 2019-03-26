@@ -29,7 +29,9 @@
     "react-dom": "^16.8.3",
     "react-helmet": "^5.2.0",
     "react-icons": "^3.5.0",
-    "react-sticky-el": "^1.0.20"
+    "react-slick": "^0.23.2",
+    "react-sticky-el": "^1.0.20",
+    "slick-carousel": "^1.8.1"
   },
   "keywords": [
     "gatsby"
