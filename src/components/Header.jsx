@@ -8,8 +8,7 @@ const Header = ({ siteTitle }) => (
     <HeaderLinks>
       <HeaderLink>
         <AniLink
-          swipe
-          direction="right"
+          fade
           to="/"
           style={{
             color: `white`,
@@ -21,8 +20,7 @@ const Header = ({ siteTitle }) => (
       </HeaderLink>
       <HeaderLink>
         <AniLink
-          swipe
-          direction="right"
+          fade
           to="/"
           style={{
             color: `white`,
@@ -34,8 +32,7 @@ const Header = ({ siteTitle }) => (
       </HeaderLink>
       <HeaderLink>
         <AniLink
-          swipe
-          direction="right"
+          fade
           to="/"
           style={{
             color: `white`,

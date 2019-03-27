@@ -7,7 +7,7 @@ import Img from "gatsby-image";
 export const Card = ({ badge, image, to, children, height, ...attrs }) => {
   const CardContainer = to ? LinkContainer : Container;
   return (
-    <CardContainer to={`/${to}`} swipe direction="left" {...attrs}>
+    <CardContainer to={`/${to}`} fade {...attrs}>
       <Image height={height}>
         <Img fluid={image} alt={badge} />
         <Badge>{badge}</Badge>

@@ -83,6 +83,7 @@ const SeasonsMenu = styled.div`
   transition: ease-in 0.3s;
   top: 0;
   bottom: 0;
+  width: 80%;
   @media screen and (min-width: ${props => props.theme.screens.tablet}) {
     position: relative;
     left: 0;
