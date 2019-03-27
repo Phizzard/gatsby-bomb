@@ -2,7 +2,6 @@ import React from "react";
 import Slider from "react-slick";
 import { Card } from "./Card";
 import styled from "@emotion/styled";
-import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
 
 const CustomNextArrow = ({ ...attrs }) => <NextArrow {...attrs} />;
 
@@ -81,10 +80,6 @@ const Container = styled.div``;
 const Title = styled.h2`
   font-weight: bold;
   margin: 0 0.5rem 0.2rem 0.5rem;
-`;
-
-const ShowCard = styled(Card)`
-  width: 250px;
 `;
 
 const SliderContainer = styled(Slider)`
