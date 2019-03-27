@@ -102,16 +102,19 @@ const SeasonButton = styled.button`
   position: fixed;
   background-color: #fff;
   border: none;
-  padding: 0.6rem;
+  padding: 0.7rem;
   margin: 0;
-  right: 3rem;
-  bottom: 3rem;
+  right: 2rem;
+  bottom: 2rem;
   line-height: 0;
   z-index: 9999;
   border-radius: 50%;
   box-shadow: 2px 2px 13px -1px rgba(0, 0, 0, 1);
+  :focus {
+    outline: none;
+  }
   svg {
-    font-size: 1.5rem;
+    font-size: 2.3rem;
   }
   @media screen and (min-width: ${props => props.theme.screens.tablet}) {
     display: none;
