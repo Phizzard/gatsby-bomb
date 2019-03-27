@@ -40,7 +40,10 @@ const Container = styled.div`
 const Image = styled.div`
   position: relative;
   width: 100%;
-  height: ${props => (props.height ? props.height : `initial`)};
+  height: ${props => (props.height ? `${props.height / 1.3}px` : `initial`)};
+  @media screen and (min-width: 480px) {
+    height: ${props => (props.height ? `${props.height}px` : `initial`)};
+  }
   img {
     height: 100%;
     width: 100%;
