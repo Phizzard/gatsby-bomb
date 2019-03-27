@@ -2,6 +2,11 @@ import React from "react";
 import Slider from "react-slick";
 import { Card } from "./Card";
 import styled from "@emotion/styled";
+import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
+
+const CustomNextArrow = ({ ...attrs }) => <NextArrow {...attrs} />;
+
+const CustomPrevArrow = ({ ...attrs }) => <PrevArrow {...attrs} />;
 
 export const ShowsSlider = ({ shows, title }) => {
   const settings = {
@@ -12,7 +17,9 @@ export const ShowsSlider = ({ shows, title }) => {
     slidesToShow: 3,
     slidesToScroll: 1,
     centerMode: true,
-    centerPadding: "80px",
+    centerPadding: "60px",
+    nextArrow: <CustomNextArrow />,
+    prevArrow: <CustomPrevArrow />,
     responsive: [
       {
         breakpoint: 1224,
@@ -81,5 +88,34 @@ const ShowCard = styled(Card)`
 `;
 
 const SliderContainer = styled(Slider)`
-  margin: 0 0.5rem;
+  margin: 0 0.75rem;
+`;
+
+const NextArrow = styled.div`
+  height: 91.5%;
+  background-color: #404040e0;
+  right: -0px;
+  transition: ease-in-out 0.1s;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  width: 25px;
+  :hover {
+    background-color: #404040;
+  }
+`;
+
+const PrevArrow = styled.div`
+  height: 91.5%;
+  background-color: #404040e0;
+  left: -0px;
+  z-index: 99;
+  transition: ease-in-out 0.1s;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  width: 25px;
+  :hover {
+    background-color: #404040;
+  }
 `;

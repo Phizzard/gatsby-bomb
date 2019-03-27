@@ -54,7 +54,7 @@ const Container = styled.header`
   text-align: center;
   border-bottom-left-radius: 5rem;
   border-bottom-right-radius: 5rem;
-  margin: 0 10% 0rem 10%;
+  margin: 0 2% 0rem 2%;
   @media screen and (min-width: ${props => props.theme.screens.tablet}) {
     margin: 0 20% 0rem 20%;
   }
