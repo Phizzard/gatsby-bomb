@@ -8,9 +8,7 @@
 const axios = require("axios");
 const path = require("path");
 const getYear = require("date-fns/get_year");
-const {
-  createRemoteFileNode
-} = require(`gatsby-source-filesystem`);
+const { createRemoteFileNode } = require(`gatsby-source-filesystem`);
 
 exports.onCreateNode = async ({
   node,
@@ -19,9 +17,7 @@ exports.onCreateNode = async ({
   cache,
   createNodeId
 }) => {
-  const {
-    createNode
-  } = actions;
+  const { createNode } = actions;
 
   let fileNode;
 
@@ -29,10 +25,30 @@ exports.onCreateNode = async ({
     node.internal.type === "GiantBombVideo" ||
     node.internal.type === "GiantBombShow"
   ) {
-    if ((node && node.image && node.image.super_url && !node.image.super_url.includes(".gif")) &&
-      (node && node.image && node.image.super_url && !node.image.super_url.includes("screen%20shot%202014-08-21%20at%209.26.33%20pm.png")) &&
-      (node && node.image && node.image.super_url && !node.image.super_url.includes("screen%20shot%202014-06-24%20at%209.26.33%20pm.png")) &&
-      (node && node.image && node.image.super_url && !node.image.super_url.includes("2649689-screen%20shot%202014-06-24%20at%209.29.35%20pm.png"))) {
+    if (
+      node &&
+      node.image &&
+      node.image.super_url &&
+      !node.image.super_url.includes(".gif") &&
+      (node &&
+        node.image &&
+        node.image.super_url &&
+        !node.image.super_url.includes(
+          "screen%20shot%202014-08-21%20at%209.26.33%20pm.png"
+        )) &&
+      (node &&
+        node.image &&
+        node.image.super_url &&
+        !node.image.super_url.includes(
+          "screen%20shot%202014-06-24%20at%209.26.33%20pm.png"
+        )) &&
+      (node &&
+        node.image &&
+        node.image.super_url &&
+        !node.image.super_url.includes(
+          "2649689-screen%20shot%202014-06-24%20at%209.29.35%20pm.png"
+        ))
+    ) {
       try {
         fileNode = await createRemoteFileNode({
           url: node.image.super_url,
@@ -54,17 +70,12 @@ exports.onCreateNode = async ({
   }
 };
 
-exports.sourceNodes = async ({
-    actions,
-    createNodeId,
-    createContentDigest
-  },
+exports.sourceNodes = async (
+  { actions, createNodeId, createContentDigest },
   configOptions
 ) => {
   const API_KEY = "09dc277eefa643ac45893ff6e2812e12a0335fd6";
-  const {
-    createNode
-  } = actions;
+  const { createNode } = actions;
   let showIds = [];
 
   const processShow = show => {
@@ -89,14 +100,13 @@ exports.sourceNodes = async ({
     return nodeData;
   };
 
-  const {
-    data
-  } = await axios.get(
-    "https://www.giantbomb.com/api/video_shows", {
+  const { data } = await axios.get(
+    "https://www.giantbomb.com/api/video_shows",
+    {
       params: {
         format: "json",
         api_key: API_KEY,
-        limit: 15 // Temporary limit while developing
+        limit: 6 // Temporary limit while developing
       }
     }
   );
@@ -189,16 +199,12 @@ exports.sourceNodes = async ({
   });
 };
 
-exports.createPages = async ({
-  graphql,
-  actions
-}) => {
-  const {
-    createPage
-  } = actions;
+exports.createPages = async ({ graphql, actions }) => {
+  const { createPage } = actions;
   const giantBombShowTemplate = path.resolve("src/templates/Show.jsx");
+  const giantBombVideoTemplate = path.resolve("src/templates/Video.jsx");
 
-  const result = await graphql(`
+  const { data } = await graphql(`
     {
       allGiantBombShow {
         edges {
@@ -225,13 +231,45 @@ exports.createPages = async ({
     }
   `);
 
-  result.data.allGiantBombShow.edges.forEach(({
-    node
-  }) => {
+  data.allGiantBombShow.edges.forEach(({ node }) => {
     createPage({
       path: node.slug,
       component: giantBombShowTemplate,
       context: node
     });
   });
+
+  const videos = await graphql(`
+    {
+      allGiantBombVideo {
+        edges {
+          node {
+            name
+            slug
+            embed_player
+            video_show {
+              id
+            }
+          }
+        }
+      }
+    }
+  `);
+
+  for (let i = 0; videos.data.allGiantBombVideo.edges.length > i; i++) {
+    const { node } = videos.data.allGiantBombVideo.edges[i];
+    const show = await graphql(`
+    {
+      giantBombShow(show_id:{eq: ${node.video_show.id}}){
+        slug
+      }
+    }
+    `);
+
+    createPage({
+      path: node.slug,
+      component: giantBombVideoTemplate,
+      context: node
+    });
+  }
 };

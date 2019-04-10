@@ -17,7 +17,6 @@ const Container = styled.div`
   position: relative;
   height: 70vh;
   width: 100vw;
-  margin-left: -2rem;
 `;
 
 const Player = styled.iframe`

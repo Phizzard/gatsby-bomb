@@ -28,6 +28,9 @@ const LinkContainer = styled(AniLink)`
   position: relative;
   justify-content: center;
   margin: 0.75rem 0;
+  text-decoration: none;
+  color: #fff;
+  text-decoration-color: #fff;
 `;
 
 const Container = styled.div`
