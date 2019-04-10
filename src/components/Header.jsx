@@ -2,6 +2,7 @@ import PropTypes from "prop-types";
 import React from "react";
 import AniLink from "gatsby-plugin-transition-link/AniLink";
 import styled from "@emotion/styled";
+import { MdViewCarousel, MdSearch, MdLiveTv } from "react-icons/md";
 
 const Header = ({ siteTitle }) => (
   <Container>
@@ -14,8 +15,9 @@ const Header = ({ siteTitle }) => (
             color: `white`,
             textDecoration: `none`
           }}
-          duration={0.4}>
-          Shows
+          duration={0.4}
+        >
+          <MdSearch />
         </AniLink>
       </HeaderLink>
       <HeaderLink>
@@ -26,8 +28,9 @@ const Header = ({ siteTitle }) => (
             color: `white`,
             textDecoration: `none`
           }}
-          duration={0.4}>
-          Search
+          duration={0.4}
+        >
+          <MdViewCarousel />
         </AniLink>
       </HeaderLink>
       <HeaderLink>
@@ -38,8 +41,9 @@ const Header = ({ siteTitle }) => (
             color: `white`,
             textDecoration: `none`
           }}
-          duration={0.4}>
-          Settings
+          duration={0.4}
+        >
+          <MdLiveTv />
         </AniLink>
       </HeaderLink>
     </HeaderLinks>
@@ -59,14 +63,14 @@ const Container = styled.header`
 
 const HeaderLinks = styled.div`
   margin: 0 auto;
-  padding: 1rem 2rem;
+  padding: 0.5rem 2rem;
   display: flex;
   justify-content: space-evenly;
 `;
 
 const HeaderLink = styled.h2`
-  margin: 0 0.5rem;
-  font-size: 1.1rem;
+  margin: 0 0.2rem;
+  font-size: 2rem;
 `;
 
 Header.propTypes = {
