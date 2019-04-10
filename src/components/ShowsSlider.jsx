@@ -89,7 +89,7 @@ const SliderContainer = styled(Slider)`
 const NextArrow = styled.div`
   height: 91.5%;
   background-color: #404040e0;
-  right: -0px;
+  right: -24px;
   transition: ease-in-out 0.1s;
   display: flex !important;
   align-items: center;
@@ -103,7 +103,7 @@ const NextArrow = styled.div`
 const PrevArrow = styled.div`
   height: 91.5%;
   background-color: #404040e0;
-  left: -0px;
+  left: -24px;
   z-index: 99;
   transition: ease-in-out 0.1s;
   display: flex !important;
