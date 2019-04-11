@@ -10,7 +10,7 @@ const Header = ({ siteTitle }) => (
       <HeaderLink>
         <AniLink
           fade
-          to="/"
+          to="/search/"
           style={{
             color: `white`,
             textDecoration: `none`
@@ -55,6 +55,7 @@ const Container = styled.header`
   text-align: center;
   border-bottom-left-radius: 5rem;
   border-bottom-right-radius: 5rem;
+  z-index: 999;
   margin: 0 2% 0rem 2%;
   @media screen and (min-width: ${props => props.theme.screens.tablet}) {
     margin: 0 20% 0rem 20%;
@@ -66,11 +67,13 @@ const HeaderLinks = styled.div`
   padding: 0.5rem 2rem;
   display: flex;
   justify-content: space-evenly;
+  z-index: 999;
 `;
 
 const HeaderLink = styled.h2`
   margin: 0 0.2rem;
   font-size: 2rem;
+  z-index: 999;
 `;
 
 Header.propTypes = {
