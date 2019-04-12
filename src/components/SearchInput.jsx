@@ -2,13 +2,13 @@ import React, { useState } from "react";
 import styled from "@emotion/styled";
 import { MdClose } from "react-icons/md";
 
-const SearchInput = ({ className, placeHolder, allowToggle }) => {
+const SearchInput = ({ className, placeHolder, allowToggle, onInput }) => {
   const [show, setShow] = useState(true);
 
   if (show) {
     return (
       <Container className={`${className ? className : ""}`}>
-        <Input placeholder={placeHolder} />
+        <Input placeholder={placeHolder} onInput={e => onInput(e)} />
         {allowToggle && (
           <CloseButton onClick={() => setShow(false)}>
             <MdCloseIcon />
