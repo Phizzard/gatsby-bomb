@@ -2,6 +2,8 @@ import React, { useState, useEffect, Fragment } from "react";
 import { graphql } from "gatsby";
 import styled from "@emotion/styled";
 
+import { Videos } from "../components/Videos";
+import { Shows } from "../components/Shows";
 import Layout from "../components/layout";
 import SearchInput from "../components/SearchInput";
 
@@ -12,13 +14,14 @@ const SearchPage = ({ data }) => {
 
   // Search Show Title
   useEffect(() => {
-    let newShowsResults = data.allGiantBombShow.edges.filter(({ node }) =>
-      node.title.toLowerCase().includes(searchValue.toLowerCase())
-    );
-
     if (searchValue === "") {
       setShowsResults([]);
     } else {
+      let newShowsResults = search(
+        searchValue,
+        data.allGiantBombShow.edges,
+        "title"
+      );
       setShowsResults(newShowsResults);
     }
   }, [searchValue]);
@@ -28,20 +31,47 @@ const SearchPage = ({ data }) => {
     if (searchValue === "") {
       setVideosResults([]);
     } else {
-      let searchValueWords = searchValue.split(" ");
-      let regexString = "";
+      let newVideosResults = search(
+        searchValue,
+        data.allGiantBombVideo.edges,
+        "name"
+      );
+
+      setVideosResults(
+        newVideosResults.sort((a, b) => {
+          if (a.node.publish_date < b.node.publish_date) {
+            return -1;
+          }
+          if (a.node.publish_date > b.node.publish_date) {
+            return 1;
+          }
+          return 0;
+        })
+      );
+    }
+  }, [searchValue]);
+
+  function search(searchValue, data, field) {
+    let searchValueWords = searchValue
+      .split(" ")
+      .filter(value => value !== "" && value.length > 2);
+    let regexString = "";
+
+    if (searchValueWords.length) {
       searchValueWords.forEach((word, index) => {
         index === searchValueWords.length
           ? (regexString += `(${searchValueWords.join("|")})`)
           : (regexString += `(${searchValueWords.join("|")}).*`);
       });
       let searchRegex = new RegExp(regexString, "i");
-      let newVideosResults = data.allGiantBombVideo.edges.filter(({ node }) => {
-        return node.name.search(searchRegex) > -1;
+
+      return data.filter(({ node }, i) => {
+        return node[field].search(searchRegex) > -1;
       });
-      setVideosResults(newVideosResults);
+    } else {
+      return [];
     }
-  }, [searchValue]);
+  }
 
   return (
     <Layout>
@@ -49,22 +79,12 @@ const SearchPage = ({ data }) => {
       {showsResults && showsResults.length > 0 && (
         <Fragment>
           <h2>Show Results</h2>
-          <ul>
-            {showsResults.map(({ node }) => (
-              <li key={node.id}>{node.title}</li>
-            ))}
-          </ul>
+          <Shows data={showsResults} />
         </Fragment>
       )}
+      <h2>Video Results</h2>
       {videosResults && videosResults.length > 0 && (
-        <Fragment>
-          <h2>Video Results</h2>
-          <ul>
-            {videosResults.map(({ node }) => (
-              <li key={node.id}>{node.name}</li>
-            ))}
-          </ul>
-        </Fragment>
+        <Videos direction="row" data={videosResults} />
       )}
     </Layout>
   );
@@ -78,15 +98,38 @@ export const query = graphql`
           id
           title
           slug
+          localImage {
+            name
+            childImageSharp {
+              fluid(maxWidth: 500, quality: 100) {
+                ...GatsbyImageSharpFluid
+                presentationWidth
+              }
+            }
+          }
         }
       }
     }
-    allGiantBombVideo(limit: 100) {
+    allGiantBombVideo {
       edges {
         node {
           id
           name
           slug
+          length_seconds
+          publish_date
+          image {
+            super_url
+          }
+          localImage {
+            name
+            childImageSharp {
+              fluid(maxWidth: 500, quality: 100) {
+                ...GatsbyImageSharpFluid
+                presentationWidth
+              }
+            }
+          }
         }
       }
     }

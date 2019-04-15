@@ -21,16 +21,16 @@ export const Videos = ({ data, ...atrs }) => {
             <VideoCard
               key={node.id}
               badge={length}
-              to={`/${node.slug}/`}
+              to={`${node.slug}`}
               image={
-                node.localImage.childImageSharp
+                node.localImage && node.localImage.childImageSharp
                   ? node.localImage.childImageSharp.fluid
                   : node.image.super_url
               }
             >
               <Deck>
                 <h3>{node.name}</h3>
-                <p>{node.deck}</p>
+                {node.deck && <p>{node.deck}</p>}
               </Deck>
             </VideoCard>
           );
@@ -42,7 +42,10 @@ export const Videos = ({ data, ...atrs }) => {
 
 const Container = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: ${props => (props.direction ? props.direction : "column")};
+  justify-content: ${props =>
+    props.direction === "row" ? "space-around" : "flex-start"};
+  flex-wrap: ${props => (props.direction === "row" ? "wrap" : "nowrap")};
   padding: 0;
   @media screen and (min-width: ${props => props.theme.screens.tablet}) {
     flex-basis: 70%;
@@ -51,14 +54,11 @@ const Container = styled.div`
 
 const VideoCard = styled(Card)`
   justify-content: center;
+  flex-basis: 100%;
   flex-wrap: wrap;
   @media screen and (min-width: ${props => props.theme.screens.tablet}) {
     flex-wrap: nowrap;
-  }
-  :first-of-type {
-    margin-top: 0;
-    margin-left: 0;
-    margin-right: 0;
+    flex-basis: 48%;
   }
 `;
 
@@ -67,17 +67,20 @@ const Deck = styled.div`
   flex-direction: column;
   background-color: #404040;
   width: 100%;
-  padding: 1.5rem;
+  padding: 0.7rem;
   align-items: center;
+  justify-content: center;
   @media screen and (min-width: ${props => props.theme.screens.tablet}) {
     width: 60%;
   }
   p,
   h3 {
     text-align: center;
+    margin: 0;
+    font-size: 1.1rem;
   }
   p {
-    margin: 0;
+    margin: 0.75rem 0 0 0;
     font-size: 0.8rem;
   }
 `;
