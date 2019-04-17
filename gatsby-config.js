@@ -40,7 +40,7 @@ module.exports = {
         background_color: `#242628`,
         theme_color: `#000`,
         display: `standalone`,
-        icon: `src/images/favicon.png` // This path is relative to the root of the site.
+        icon: `src/images/giantbomb.png` // This path is relative to the root of the site.
       }
     },
     `gatsby-plugin-transition-link`,

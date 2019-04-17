@@ -36,7 +36,7 @@ const Header = ({ siteTitle }) => (
       <HeaderLink>
         <AniLink
           fade
-          to="/"
+          to="/live/"
           style={{
             color: `white`,
             textDecoration: `none`
