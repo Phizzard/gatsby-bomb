@@ -58,7 +58,14 @@ const Live = () => {
                     </Wrapper>
                 </Fragment>
             ) : (
-                <h1>Nothing is currently Streaming :(</h1>
+                <Fragment>
+                    <h1>Nothing currently live, but here's infinite!?</h1>
+                    <iframe
+                        title="GBInfinite"
+                        src="https://www.giantbomb.com/live/livestreams/981"
+                        allowFullScreen
+                    />
+                </Fragment>
             )}
         </Layout>
     );
