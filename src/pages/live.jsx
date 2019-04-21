@@ -7,75 +7,66 @@ import axios from "axios";
 import Layout from "../components/layout";
 
 const Live = () => {
-    const [liveVideo, setLiveVideo] = useState(null);
-    let videoRef = useRef(null);
+  const [liveVideo, setLiveVideo] = useState(null);
+  let videoRef = useRef(null);
 
-    useEffect(() => {
-        let player = null;
-        if (liveVideo && liveVideo.stream) {
-            player = videojs("live-video", {
-                autoplay: true,
-                controls: true,
-                sources: [
-                    {
-                        src: liveVideo.stream,
-                        type: "video/x-mpegURL"
-                    }
-                ]
-            });
-        }
-        return function cleanup() {
-            if (player) player.dispose();
-        };
-    });
-
-    useEffect(() => {
-        fetchCurrentLive()
-            .then(result => {
-                setLiveVideo(result);
-            })
-            .catch(err => console.error(err));
-    }, []);
-
-    const fetchCurrentLive = async () => {
-        const { video } = await axios.get("/.netlify/functions/current-live");
-        return video;
+  useEffect(() => {
+    let player = null;
+    if (liveVideo && liveVideo.stream) {
+      player = videojs("live-video", {
+        autoplay: true,
+        controls: true,
+        sources: [
+          {
+            src: liveVideo.stream,
+            type: "video/x-mpegURL"
+          }
+        ]
+      });
+    }
+    return function cleanup() {
+      if (player) player.dispose();
     };
+  });
 
-    return (
-        <Layout>
-            {liveVideo && liveVideo.title && liveVideo.stream ? (
-                <Fragment>
-                    <h1>Currently live: {liveVideo.title}</h1>
-                    <Wrapper>
-                        <div data-vjs-player>
-                            <video
-                                id="live-video"
-                                className="video-js"
-                                ref={videoRef}
-                            />
-                        </div>
-                    </Wrapper>
-                </Fragment>
-            ) : (
-                <Fragment>
-                    <h1>Nothing currently live, but here's infinite!?</h1>
-                    <iframe
-                        title="GBInfinite"
-                        src="https://www.giantbomb.com/live/livestreams/981"
-                        allowFullScreen
-                    />
-                </Fragment>
-            )}
-        </Layout>
-    );
+  useEffect(() => {
+    fetchCurrentLive()
+      .then(result => {
+        setLiveVideo(result);
+      })
+      .catch(err => console.error(err));
+  }, []);
+
+  const fetchCurrentLive = async () => {
+    const { video } = await axios.get("/.netlify/functions/current-live");
+    return video;
+  };
+
+  return (
+    <Layout>
+      {liveVideo && liveVideo.title && liveVideo.stream ? (
+        <Fragment>
+          <h1>Currently live: {liveVideo.title}</h1>
+          <Wrapper>
+            <div data-vjs-player>
+              <video id="live-video" className="video-js" ref={videoRef} />
+            </div>
+          </Wrapper>
+        </Fragment>
+      ) : (
+        <Fragment>
+          <h1>Nothing currently live.</h1>
+        </Fragment>
+      )}
+    </Layout>
+  );
 };
 
 const Wrapper = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 90vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 90vh;
 `;
 
 export default Live;

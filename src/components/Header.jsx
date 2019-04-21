@@ -3,6 +3,7 @@ import React from "react";
 import AniLink from "gatsby-plugin-transition-link/AniLink";
 import styled from "@emotion/styled";
 import { MdViewCarousel, MdSearch, MdLiveTv } from "react-icons/md";
+import { FaInfinity } from "react-icons/fa";
 
 const Header = ({ siteTitle }) => (
   <Container>
@@ -15,8 +16,7 @@ const Header = ({ siteTitle }) => (
             color: `white`,
             textDecoration: `none`
           }}
-          duration={0.4}
-        >
+          duration={0.4}>
           <MdSearch />
         </AniLink>
       </HeaderLink>
@@ -28,9 +28,20 @@ const Header = ({ siteTitle }) => (
             color: `white`,
             textDecoration: `none`
           }}
-          duration={0.4}
-        >
+          duration={0.4}>
           <MdViewCarousel />
+        </AniLink>
+      </HeaderLink>
+      <HeaderLink>
+        <AniLink
+          fade
+          to="/infinite/"
+          style={{
+            color: `white`,
+            textDecoration: `none`
+          }}
+          duration={0.4}>
+          <FaInfinity />
         </AniLink>
       </HeaderLink>
       <HeaderLink>
@@ -41,8 +52,7 @@ const Header = ({ siteTitle }) => (
             color: `white`,
             textDecoration: `none`
           }}
-          duration={0.4}
-        >
+          duration={0.4}>
           <MdLiveTv />
         </AniLink>
       </HeaderLink>
