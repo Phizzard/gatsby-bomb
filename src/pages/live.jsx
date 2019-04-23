@@ -12,7 +12,11 @@ const Live = () => {
 
   useEffect(() => {
     let player = null;
-    if (liveVideo && liveVideo.stream) {
+    if (
+      document.getElementById("live-video") &&
+      liveVideo &&
+      liveVideo.stream
+    ) {
       player = videojs("live-video", {
         autoplay: true,
         controls: true,
@@ -38,15 +42,15 @@ const Live = () => {
   }, []);
 
   const fetchCurrentLive = async () => {
-    const { video } = await axios.get("/.netlify/functions/current-live");
-    return video;
+    const { data } = await axios.get("/.netlify/functions/current-live");
+    return data.video;
   };
 
   return (
     <Layout>
       {liveVideo && liveVideo.title && liveVideo.stream ? (
         <Fragment>
-          <h1>Currently live: {liveVideo.title}</h1>
+          <Title>Currently live: {liveVideo.title}</Title>
           <Wrapper>
             <div data-vjs-player>
               <video id="live-video" className="video-js" ref={videoRef} />
@@ -55,7 +59,7 @@ const Live = () => {
         </Fragment>
       ) : (
         <Fragment>
-          <h1>Nothing currently live.</h1>
+          <Title>Nothing currently live.</Title>
         </Fragment>
       )}
     </Layout>
@@ -67,6 +71,21 @@ const Wrapper = styled.div`
   align-items: center;
   justify-content: center;
   height: 90vh;
+  .video-js {
+    width: 100%;
+    height: 100%;
+  }
+`;
+
+const Title = styled.h1`
+  width: 100%;
+  font-size: 1rem;
+  text-align: center;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  @media screen and (min-width: ${props => props.theme.screens.tablet}) {
+    font-size: 2rem;
+  }
 `;
 
 export default Live;
