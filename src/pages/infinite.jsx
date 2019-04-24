@@ -7,7 +7,7 @@ const Infinite = () => {
   return (
     <Layout>
       <Wrapper>
-        <Title>GiantBomb Infinite, all day, all night baby.</Title>
+        <Title>GiantBomb Infinite, all day, all night baby</Title>
         <Player
           src="https://www.giantbomb.com/live/livestreams/981"
           allowFullScreen
