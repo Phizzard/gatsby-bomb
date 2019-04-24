@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState, Fragment } from "react";
 import styled from "@emotion/styled";
 import videojs from "video.js";
+import "@videojs/http-streaming";
 import "video.js/dist/video-js.min.css";
 import axios from "axios";
 
@@ -18,6 +19,11 @@ const Live = () => {
       liveVideo.stream
     ) {
       player = videojs("live-video", {
+        html5: {
+          hls: {
+            overrideNative: true
+          }
+        },
         autoplay: true,
         controls: true,
         sources: [
@@ -59,7 +65,7 @@ const Live = () => {
         </Fragment>
       ) : (
         <Fragment>
-          <Title>Nothing currently live.</Title>
+          <Title>Nothing currently live</Title>
         </Fragment>
       )}
     </Layout>
