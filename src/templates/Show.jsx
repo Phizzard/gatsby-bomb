@@ -51,7 +51,8 @@ const Show = ({ pageContext, data }) => {
                   onClick={() => {
                     setSeason(node.name);
                     setIsExpanded(false);
-                  }}>
+                  }}
+                >
                   {node.name}
                 </MenuItem>
               ))
@@ -104,8 +105,8 @@ const SeasonButton = styled.button`
   border: none;
   padding: 0.7rem;
   margin: 0;
-  right: 2rem;
-  bottom: 2rem;
+  right: 3rem;
+  bottom: 5rem;
   line-height: 0;
   z-index: 9999;
   border-radius: 50%;

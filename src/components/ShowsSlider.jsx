@@ -62,15 +62,16 @@ export const ShowsSlider = ({ shows, title }) => {
     <Container>
       <Title>{title}</Title>
       <SliderContainer {...settings}>
-        {shows.map(({ node }) => (
-          <Card
-            key={node.id}
-            badge={node.title}
-            image={node.localImage.childImageSharp.fluid}
-            to={node.slug}
-            height={270}
-          />
-        ))}
+        {shows &&
+          shows.map(({ node }) => (
+            <Card
+              key={node.id}
+              badge={node.title}
+              image={node.localImage.childImageSharp.fluid}
+              to={node.slug}
+              height={270}
+            />
+          ))}
       </SliderContainer>
     </Container>
   );

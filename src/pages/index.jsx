@@ -10,7 +10,10 @@ const IndexPage = ({ data }) => {
     <StyledLayout>
       <SEO title="Home" keywords={[`gatsby`, `application`, `react`]} />
       <ShowsSlider title="Active Shows" shows={data.activeShows.edges} />
-      <ShowsSlider title="Premium Shows" shows={data.premiumShows.edges} />
+      <ShowsSlider
+        title="Premium Shows"
+        shows={data.premiumShows && data.premiumShows.edges}
+      />
       <ShowsSlider title="Free Shows" shows={data.freeShows.edges} />
     </StyledLayout>
   );

@@ -16,7 +16,8 @@ const Header = ({ siteTitle }) => (
             color: `white`,
             textDecoration: `none`
           }}
-          duration={0.4}>
+          duration={0.4}
+        >
           <MdSearch />
         </AniLink>
       </HeaderLink>
@@ -28,7 +29,8 @@ const Header = ({ siteTitle }) => (
             color: `white`,
             textDecoration: `none`
           }}
-          duration={0.4}>
+          duration={0.4}
+        >
           <MdViewCarousel />
         </AniLink>
       </HeaderLink>
@@ -40,7 +42,8 @@ const Header = ({ siteTitle }) => (
             color: `white`,
             textDecoration: `none`
           }}
-          duration={0.4}>
+          duration={0.4}
+        >
           <FaInfinity />
         </AniLink>
       </HeaderLink>
@@ -52,7 +55,8 @@ const Header = ({ siteTitle }) => (
             color: `white`,
             textDecoration: `none`
           }}
-          duration={0.4}>
+          duration={0.4}
+        >
           <MdLiveTv />
         </AniLink>
       </HeaderLink>
@@ -63,12 +67,21 @@ const Header = ({ siteTitle }) => (
 const Container = styled.header`
   background-color: #000;
   text-align: center;
-  border-bottom-left-radius: 5rem;
-  border-bottom-right-radius: 5rem;
+  border-top-left-radius: 5rem;
+  border-top-right-radius: 5rem;
   z-index: 999;
   margin: 0 2% 0rem 2%;
+  position: fixed;
+  width: 100%;
+  bottom: 0;
   @media screen and (min-width: ${props => props.theme.screens.tablet}) {
     margin: 0 20% 0rem 20%;
+    width: initial;
+    position: relative;
+    border-bottom-left-radius: 5rem;
+    border-bottom-right-radius: 5rem;
+    border-top-left-radius: 0rem;
+    border-top-right-radius: 0rem;
   }
 `;
 
