@@ -106,7 +106,7 @@ exports.sourceNodes = async (
       params: {
         format: "json",
         api_key: API_KEY,
-        limit: 20 // Temporary limit while developing
+        limit: 99 // Temporary limit while developing
       }
     }
   );
