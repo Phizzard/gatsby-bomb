@@ -38,14 +38,25 @@ const Layout = ({ children, ...attrs }) => (
               style={{
                 fontSize: "12px",
                 color: "#999"
-              }}>
+              }}
+            >
               ©{new Date().getFullYear()}
-              Philip Tietjen, Built with {` `}{" "}
+              {` `}
               <a
                 style={{
                   color: "#999"
                 }}
-                href="https://www.gatsbyjs.org">
+                href="https://www.philtietjen.dev"
+              >
+                Phil Tietjen
+              </a>
+              , Built with {` `}{" "}
+              <a
+                style={{
+                  color: "#999"
+                }}
+                href="https://www.gatsbyjs.org"
+              >
                 Gatsby{" "}
               </a>{" "}
               {` & `}{" "}
@@ -53,7 +64,8 @@ const Layout = ({ children, ...attrs }) => (
                 style={{
                   color: "#999"
                 }}
-                href="https://www.giantbomb.com/api">
+                href="https://www.giantbomb.com/api"
+              >
                 GiantBomb API{" "}
               </a>{" "}
             </footer>{" "}
